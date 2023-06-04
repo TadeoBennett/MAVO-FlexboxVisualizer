@@ -15,6 +15,7 @@ main{
 .page {
     position: relative;
     overflow: auto;
+    margin-top: 60px;
 }
 
 .page-content {
@@ -94,8 +95,14 @@ footer {
     background-color: #3B3561;
     color: #FFF;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: start;
+    position: relative;  
+}
+
+.flexItemText{
+    background-color: transparent;
+    color: white;
 }
 
 button.mv-add-flexItem{
@@ -109,5 +116,36 @@ button.mv-add-flexItem{
     border-radius: 10px;
 }
 
+.number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
+    color: rgba(182, 182, 182, 0.808);
+    z-index: 500;
+}
 
+/* Reduce the size of scroll bars */
+::-webkit-scrollbar {
+    padding: 10px;
+    width: 1px;
+}
 
+.navbar{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin-top: 40px;
+    z-index: 999999;
+}
+
+.copyCSS{
+    background-color: #EAB464;
+    color: #fff;
+    border: 1px #fff;
+    font-size: 1.1em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-radius: 10px;
+    padding: 8px 20px 8px 20px;
+}
