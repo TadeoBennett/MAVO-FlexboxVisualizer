@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Organizer</title>
+    <title>Flexbox Visualizer</title>
 
     <!-- BOOSTRAP CDN CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -15,10 +15,8 @@
     <link rel="stylesheet" href="https://get.mavo.io/mavo.css" />
     <script src="https://get.mavo.io/mavo.js"></script>
 
-    <!-- GOOGLE FONT -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Montserrat:wght@500&family=Lato:wght@400&family=Playfair+Display:wght@400&family=Oswald:wght@400&family=Raleway:wght@400&family=Roboto&display=swap"
-        rel="stylesheet">
+    <!-- SWEET ALERT -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- MY STYLES -->
     <link rel="stylesheet" href="./style.css">
@@ -31,8 +29,10 @@
             <nav class="navbar bg-body-tertiary">
                 <div class="container-fluid">
                     <span class="navbar-text">
-                        Visualizing Flexbox
+                        VISUALIZING FLEXBOX
                     </span>
+                    <button class="copyCSS" property="cssCopy" value="[custom_user_styles]" onclick='copyCSS(this.value)'>Copy
+                        CSS</butto>
                 </div>
             </nav>
             <main class="container mt-3">
@@ -107,36 +107,43 @@
                         </div>
                     </div>
                 </div>
-                <input hidden property="custom_user_styles" value="flex-direction: [flex_direction];
-                flex-wrap: [flex_wrap];
-                justify-content: [justify_content];
-                align-content: [align_content];
-                align-items: [align_items];
-                gap: [row_gap]px [column_gap]px;
-                height: [container_height]px;
-                width: [container_width]px;"></input>
+                <input hidden property="custom_user_styles" value="
+[if(flex_direction == '', ' ', 'flex-direction: ' & flex_direction & ';')]
+[if(flex_wrap == '', ' ', 'flex-wrap: ' & flex_wrap & ';')]
+[if(justify_content == '', '', 'justify-content: ' & justify_content & ';')]
+[if(align_content == '', '', 'align-content: ' & align_content & ';')]
+[if(align_items == '', '', 'align-items: ' & align_items & ';')]
+[if(flex_direction == '', '', 'flex-direction: ' & flex_direction & ';')]
+[if(container_height == '', '', 'height: ' & container_height & 'px;')]
+[if(container_width == '', '', 'width: ' & container_width & 'px;')]
+gap: [row_gap]px [column_gap]px;"></input>
                 <div class="demo-area mt-4 border border-primary pt-4" mv-list style="[custom_user_styles]">
                     <div class="my-flex-item mv-add-flexItem" property="flexItem" mv-list-item style="
                     height: [flexitem_height]px;
+                    max-height: [flexitem_height]px;
                     width: [flexitem_width]px;
+                    max-width: [flexitem_width]px;
                     ">
-                    [$index]
+                        <div class="number">[$index]</div>
+                        <textarea property="flexItemText" value=""
+                            class="w-100 h-100 flexItemText text-wrap"></textarea>
                     </div>
                 </div>
+
                 <div class="d-flex gap-3">
                     <div class="col-lg-4">
                         <h4>Container Dimensions</h4>
                         <label for="C_height">Container height<input class="form-control" id="C_height" type="number"
                                 property="container_height" min="200" value="500"></label>
-                        <label for="C_width">Container Width<input class="form-control" id="C_width" type="number" property="container_width"
-                                min="600"></label>
+                        <label for="C_width">Container Width<input class="form-control" id="C_width" type="number"
+                                property="container_width" min="600"></label>
                     </div>
                     <div class="col-lg-4">
                         <h4>Flex Item Dimensions</h4>
                         <label for="F_height">Flex item height<input class="form-control" id="F_height" type="number"
                                 property="flexitem_height" min="100"></label>
-                        <label for="F_width">Flex item width<input class="form-control" id="F_width" type="number" property="flexitem_width"
-                                min="100"></label>
+                        <label for="F_width">Flex item width<input class="form-control" id="F_width" type="number"
+                                property="flexitem_width" min="100"></label>
                     </div>
                 </div>
             </main>
@@ -152,8 +159,29 @@
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
     crossorigin="anonymous"></script>
 
+<script>
+    function copyCSS(text) {
+        Swal.fire({
+            title: 'Copy these styles?: <br>' + text,
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                Swal.fire('CSS Copied!', '', 'success')
+            }
+        })
 
-<!-- FONT AWESOME -->
-<script src="https://kit.fontawesome.com/b7e4318d61.js" crossorigin="anonymous"></script>
+	    navigator.clipboard.writeText(text)
+	    Swal.fire({
+	    	icon: 'success',
+	    	title: 'Your css is copied ↓',
+            text: text,
+	    	showConfirmButton: true,
+	    	timer: 4000
+	    })
+    }
+</script>
 
 </html>
